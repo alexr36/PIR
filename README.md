@@ -1,2 +1,2 @@
 # PIR
-Rozwiązania list zadań z przedmiotu Podstawy Internetu Rzeczy
+(Basics of Internet of Things)
