@@ -48,6 +48,7 @@ void handleButtonRed() {
   if (digitalRead(BUTTON_RED) == LOW && brightnessLevel > BRIGHTNESS_LEVEL_MIN) {
     brightnessLevel = max(brightnessLevel - BRIGHTNESS_STEP, BRIGHTNESS_LEVEL_MIN);
     setDiodeBrightness();
+    delay(DEBOUNCE_TIME_MS);
   }
 }
 
@@ -56,6 +57,7 @@ void handleButtonGreen() {
   if (digitalRead(BUTTON_GREEN) == LOW && brightnessLevel < BRIGHTNESS_LEVEL_MAX) {
     brightnessLevel = min(brightnessLevel + BRIGHTNESS_STEP, BRIGHTNESS_LEVEL_MAX);
     setDiodeBrightness();
+    delay(DEBOUNCE_TIME_MS);
   }
 }
 
@@ -67,7 +69,6 @@ void setDiodeBrightness() {
 void handleBrightness() {
   handleButtonRed();
   handleButtonGreen();
-  delay(DEBOUNCE_TIME_MS);
 }
 
 // -----------------------------------------------------------------------------
