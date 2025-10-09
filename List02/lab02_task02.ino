@@ -8,6 +8,11 @@
 #define BUTTON_RED   2
 #define BUTTON_GREEN 4
 
+#define BRIGHTNESS_LEVEL_MAX 255
+#define BRIGHTNESS_LEVEL_MIN 0
+
+#define DEBOUNCE_TIME_MS 10
+
 // -----------------------------------------------------------------------------
 // Global variables
 // -----------------------------------------------------------------------------
@@ -22,7 +27,6 @@ void initRGB() {
   digitalWrite(LED_RED, LOW);
 
   pinMode(LED_GREEN, OUTPUT);
-  //digitalWrite(LED_GREEN, LOW);
   analogWrite(LED_GREEN, brightnessLevel);
 
   pinMode(LED_BLUE, OUTPUT);
@@ -40,8 +44,7 @@ void initButtons() {
 // -----------------------------------------------------------------------------
 // Turning the brightness level down
 void handleButtonRed() {
-  if (digitalRead(BUTTON_RED) == LOW) {
-    if (brightnessLevel <= 0) return;
+  if (digitalRead(BUTTON_RED) == LOW && brightnessLevel > BRIGHTNESS_LEVEL_MIN) {
     brightnessLevel--;
     setDiodeBrightness();
   }
@@ -49,8 +52,7 @@ void handleButtonRed() {
 
 // Turning the brightness level up
 void handleButtonGreen() {
-  if (digitalRead(BUTTON_GREEN) == LOW) {
-    if (brightnessLevel >= 255) return;
+  if (digitalRead(BUTTON_GREEN) == LOW && brightnessLevel < BRIGHTNESS_LEVEL_MAX) {
     brightnessLevel++;
     setDiodeBrightness();
   }
@@ -61,10 +63,10 @@ void setDiodeBrightness() {
   analogWrite(LED_GREEN, brightnessLevel);
 }
 
-void handleDiodeBrightness() {
+void handleBrightness() {
   handleButtonRed();
   handleButtonGreen();
-  delay(10);
+  delay(DEBOUNCE_TIME_MS);
 }
 
 // -----------------------------------------------------------------------------
@@ -79,5 +81,5 @@ void setup() {
 
 
 void loop() {
-  handleDiodeBrightness();
+  handleBrightness();
 }
