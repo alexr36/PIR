@@ -10,14 +10,14 @@
 
 #define BRIGHTNESS_LEVEL_MAX 255
 #define BRIGHTNESS_LEVEL_MIN 0
-#define BRIGHTNESS_STEP      1
+#define BRIGHTNESS_STEP      5
 
 #define DEBOUNCE_TIME_MS 10
 
 // -----------------------------------------------------------------------------
 // Global variables
 // -----------------------------------------------------------------------------
-uint16_t brightnessLevel = 127;   // 0 - OFF, 255 - full brightness
+int brightnessLevel = 127;   // 0 - OFF, 255 - full brightness
 
 // -----------------------------------------------------------------------------
 // Pin initialization
