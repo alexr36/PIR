@@ -8,6 +8,8 @@
 #define BUTTON_RED   2
 #define BUTTON_GREEN 4
 
+#define DEBOUNCE_TIME_MS 100
+
 // -----------------------------------------------------------------------------
 // Global variables
 // -----------------------------------------------------------------------------
@@ -53,7 +55,6 @@ void handleButtonRed() {
   bool buttonRedCurrentState = digitalRead(BUTTON_RED);
   if (buttonRedCurrentState == LOW && buttonRedLastState == HIGH) {
     ledIsEnabled = !ledIsEnabled;
-    delay(100);
   }
   buttonRedLastState = buttonRedCurrentState;
 }
@@ -63,7 +64,6 @@ void handleButtonGreen() {
   bool buttonGreenCurrentState = digitalRead(BUTTON_GREEN);
   if (buttonGreenCurrentState == LOW && buttonGreenLastState == HIGH) {
     currentColor = (currentColor + 1) % 3;
-    delay(100);
   }
   buttonGreenLastState = buttonGreenCurrentState;
 }
@@ -90,4 +90,5 @@ void setup() {
 
 void loop() {
   handleDiode();
+  delay(DEBOUNCE_TIME_MS);
 }
