@@ -10,7 +10,9 @@
 
 #define BRIGHTNESS_LEVEL_MAX 255
 #define BRIGHTNESS_LEVEL_MIN 0
-#define BRIGHTNESS_STEP      5
+#define BRIGHTNESS_STEP      1
+
+#define DEBOUNCE_TIME_MS 10
 
 // -----------------------------------------------------------------------------
 // Global variables
@@ -80,4 +82,5 @@ void setup() {
 
 void loop() {
   handleBrightness();
+  delay(DEBOUNCE_TIME_MS);
 }
