@@ -39,6 +39,21 @@ void initButtons() {
 }
 
 // -----------------------------------------------------------------------------
+// Utility functions
+// -----------------------------------------------------------------------------
+// Maps buttons to their IDs in code
+uint8_t getButtonID(uint8_t button) {
+  if (button == BUTTON_GREEN) return 0;
+  if (button == BUTTON_RED)   return 1;
+}
+
+// Custom short delay 
+void customDelay(unsigned long delay) {
+  unsigned long currentTime = millis();
+  while (millis() - currentTime <= delay);
+}
+
+// -----------------------------------------------------------------------------
 // Handling buttons behavior
 // -----------------------------------------------------------------------------
 // Debouncing technique for buttons
@@ -104,18 +119,6 @@ void handleButtons() {
     customDelay(1000);
     setNextColor();
   }
-}
-
-// Maps buttons to their IDs in code
-uint8_t getButtonID(uint8_t button) {
-  if (button == BUTTON_GREEN) return 0;
-  if (button == BUTTON_RED)   return 1;
-}
-
-// Custom short delay 
-void customDelay(unsigned long delay) {
-  unsigned long currentTime = millis();
-  while (millis() - currentTime <= delay);
 }
 
 // -----------------------------------------------------------------------------
