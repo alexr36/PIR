@@ -45,6 +45,8 @@ void initButtons() {
 uint8_t getButtonID(uint8_t button) {
   if (button == BUTTON_GREEN) return 0;
   if (button == BUTTON_RED)   return 1;
+
+  return -1;
 }
 
 // Custom short delay 
@@ -59,6 +61,9 @@ void customDelay(unsigned long delay) {
 // Debouncing technique for buttons
 bool isButtonPressed(uint8_t button) {
   uint8_t index = getButtonID(button);
+
+  if (index == -1) return false;
+  
   static uint8_t debouncedButtonState[2];
   static uint8_t lastReading[2];
   static unsigned long lastChangeTime[2];
