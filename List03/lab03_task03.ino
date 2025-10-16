@@ -39,6 +39,7 @@ LiquidCrystal_I2C lcdDisplay(0x27, 16, 2);
 
 void initLCD() {
   lcdDisplay.init();
+  lcdDisplay.clear();
   lcdDisplay.backlight();
 }
 
@@ -112,17 +113,17 @@ bool isButtonPressedGreen() {
 // -----------------------------------------------------------------------------
 // Displaying measured time unit and what is being measured
 void displayInfo() {
-  lcdDisplay.clear();
+  clearTimeField();
+  lcdDisplay.home();
   lcdDisplay.print("Time: ");
   lcdDisplay.setCursor(15, 0);
   lcdDisplay.print('s');
-  displayElapsedTime();
+  displayTime();
 }
 
-// Displays given time
-void displayTime(uint32_t timeSeconds) {
-  lcdDisplay.setCursor(15 - getNumberLength(timeSeconds), 0);
-  lcdDisplay.print(timeSeconds);
+void clearTimeField() {
+  lcdDisplay.setCursor(6, 0);
+  for (uint8_t i = 6; i < 15; i++) lcdDisplay.print(' ');
 }
 
 // -----------------------------------------------------------------------------
@@ -135,7 +136,7 @@ void updateTime() {
     if (currentTime - lastUpdateTime >= REFRESH_PERIOD_MS) {
       elapsedTime++;
       lastUpdateTime = currentTime;
-      displayElapsedTime();
+      displayTime();
     }
   }
 }
@@ -150,16 +151,18 @@ void toggleTimer() {
 
 // Stops and resets the timer
 void resetTimer() {
-  if (isButtonPressedRed() && isTimerRunning) {
-    isTimerRunning = !isTimerRunning;
+  if (isButtonPressedRed()) {
+    isTimerRunning = false;
     elapsedTime = 0;
-    displayInfo();
+    clearTimeField();
+    displayTime();
   }
 }
 
 // Displays elapsed time
-void displayElapsedTime() {
-  displayTime(elapsedTime);
+void displayTime() {
+  lcdDisplay.setCursor(15 - getNumberLength(elapsedTime), 0);
+  lcdDisplay.print(elapsedTime);
 }
 
 // -----------------------------------------------------------------------------
